@@ -65,7 +65,7 @@ $indexes[] = "7: counterclockwise, RTL";
 addGlyphsToNode($numconFonts, $glyphs, $lineHeight, true, true);
 
 $indexes[] = '';
-$canvas->save("out.png");
+$canvas->save("num.png");
 
 $numcon->append($numconFonts);
 
@@ -84,4 +84,4 @@ $nmDesc->append($numconAP);
 
 $nmDesc->append($numcon);
 $nmDesc->formatOutput = true;
-echo $nmDesc->saveXML();
+file_put_contents("numbering.xml", $nmDesc->saveXML());
