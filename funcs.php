@@ -32,7 +32,7 @@ function rotateGlyphArrayCW(array $in, int $tileSize): array {
         $x['width'] = $v['width'];
 
         // rotate point
-        $x['x'] = (0 - $v['y'] - $tileSize) + $tileSize;
+        $x['x'] = (0 - ($v['y'] - $tileSize)) + $tileSize;
         $x['y'] = ($v['x'] - $tileSize) + $tileSize;
 
         $arr[$k] = $x;
