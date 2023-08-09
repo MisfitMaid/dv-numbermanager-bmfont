@@ -39,16 +39,49 @@ foreach($font->find("chars>char") as $char) {
     $glyphs[chr($char->attr("id"))] = $x;
 }
 
+$indexes = ['', 'font indexes:'];
 
+$indexes[] = "0: upright, LTR";
+addGlyphsToNode($numconFonts, $glyphs, $lineHeight, false, false);
+$indexes[] = "1: upright, RTL";
+addGlyphsToNode($numconFonts, $glyphs, $lineHeight, false, true);
 
-addGlyphsToNode($numconFonts, $glyphs, $lineHeight, $canvas);
 $glyphs = rotateGlyphArrayCW($glyphs, $tileHeight);
-addGlyphsToNode($numconFonts, $glyphs, $lineHeight, $canvas);
-$glyphs = rotateGlyphArrayCW($glyphs, $tileHeight);
-addGlyphsToNode($numconFonts, $glyphs, $lineHeight, $canvas);
+$indexes[] = "2: clockwise, LTR";
+addGlyphsToNode($numconFonts, $glyphs, $lineHeight, true, false);
+$indexes[] = "3: clockwise, RTL";
+addGlyphsToNode($numconFonts, $glyphs, $lineHeight, true, true);
 
+$glyphs = rotateGlyphArrayCW($glyphs, $tileHeight);
+$indexes[] = "4: upside-down, LTR";
+addGlyphsToNode($numconFonts, $glyphs, $lineHeight, false, false);
+$indexes[] = "5: upside-down, RTL";
+addGlyphsToNode($numconFonts, $glyphs, $lineHeight, false, true);
+
+$glyphs = rotateGlyphArrayCW($glyphs, $tileHeight);
+$indexes[] = "6: counterclockwise, LTR";
+addGlyphsToNode($numconFonts, $glyphs, $lineHeight, true, false);
+$indexes[] = "7: counterclockwise, RTL";
+addGlyphsToNode($numconFonts, $glyphs, $lineHeight, true, true);
+
+$indexes[] = '';
 $canvas->save("out.png");
 
 $numcon->append($numconFonts);
+
+$numconAP = $nmDesc->createElement("AttachPoints");
+
+$com = $nmDesc->createComment(implode(PHP_EOL, $indexes));
+$numconAP->append($com);
+
+$ap = $nmDesc->createElement("NumAttachPoint");
+$ap->setAttribute("FontIdx", "XXX");
+$ap->setAttribute("X", "XXX");
+$ap->setAttribute("Y", "XXX");
+$numconAP->append($ap);
+
+$nmDesc->append($numconAP);
+
 $nmDesc->append($numcon);
+$nmDesc->formatOutput = true;
 echo $nmDesc->saveXML();

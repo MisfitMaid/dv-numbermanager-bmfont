@@ -1,6 +1,7 @@
 {
-    "require": {
-        "intervention/image": "^2.7",
-        "querypath/querypath": "^3.0"
-    }
+  "require": {
+    "intervention/image": "^2.7",
+    "querypath/querypath": "^3.0",
+    "ext-dom": "*"
+  }
 }

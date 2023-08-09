@@ -2,7 +2,7 @@
 
 use Intervention\Image\Image;
 
-function addGlyphsToNode(DOMElement $elem, array $glyphs, int $height, Image $debug): void {
+function addGlyphsToNode(DOMElement $elem, array $glyphs, int $height, bool $vert = false, bool $reverse = false, Image $debug = null): void {
     ksort($glyphs);
 
     $width = [];
@@ -12,16 +12,20 @@ function addGlyphsToNode(DOMElement $elem, array $glyphs, int $height, Image $de
         $width[] = $v['width'];
         $x[] = $v['x'];
         $y[] = $v['y'];
-        $debug->circle(3, $v['x'], $v['y'], function ($draw) {
-            $draw->background('#0000ff');
-        });
+        if (!is_null($debug)) {
+            $debug->circle(3, $v['x'], $v['y'], function ($draw) {
+                $draw->background('#0000ff');
+            });
+        }
     }
 
     $numfon = $elem->ownerDocument->createElement("NumberFont");
+    $numfon->setAttribute("ReverseDigits", $reverse ? "true" : "false");
+    $numfon->setAttribute("Orientation", $vert ? "Vertical" : "Horizontal");
     $numfon->setAttribute("Height", $height);
-    $numfon->setAttribute("CharX", implode(" ", $x));
-    $numfon->setAttribute("CharY", implode(" ", $y));
-    $numfon->setAttribute("CharWidth", implode(" ", $width));
+    $numfon->setAttribute("CharX", implode(", ", $x));
+    $numfon->setAttribute("CharY", implode(", ", $y));
+    $numfon->setAttribute("CharWidth", implode(", ", $width));
     $elem->append($numfon);
 }
 
