@@ -80,7 +80,14 @@ $ap->setAttribute("X", "XXX");
 $ap->setAttribute("Y", "XXX");
 $numconAP->append($ap);
 
-$nmDesc->append($numconAP);
+$numcon->append($numconAP);
+
+$numcon->setAttribute("TargetTexture", "XXX");
+$numcon->setAttribute("BlendMode", "Normal");
+$numcon->setAttribute("MinNumber", "0");
+$numcon->setAttribute("MaxNumber", "0");
+$numcon->setAttribute("Offset", "0");
+$numcon->setAttribute("ForceRandom", "false");
 
 $nmDesc->append($numcon);
 $nmDesc->formatOutput = true;
