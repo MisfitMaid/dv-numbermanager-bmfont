@@ -42,27 +42,27 @@ foreach($font->find("chars>char") as $char) {
 $indexes = ['', 'font indexes:'];
 
 $indexes[] = "0: upright, LTR";
-addGlyphsToNode($numconFonts, $glyphs, $lineHeight, false, false);
+addGlyphsToNode($numconFonts, $glyphs, $lineHeight, false, false, 'none');
 $indexes[] = "1: upright, RTL";
-addGlyphsToNode($numconFonts, $glyphs, $lineHeight, false, true);
+addGlyphsToNode($numconFonts, $glyphs, $lineHeight, false, true, 'none');
 
 $glyphs = rotateGlyphArrayCW($glyphs, $tileHeight);
 $indexes[] = "2: clockwise, LTR";
-addGlyphsToNode($numconFonts, $glyphs, $lineHeight, true, false);
+addGlyphsToNode($numconFonts, $glyphs, $lineHeight, true, false, 'awy');
 $indexes[] = "3: clockwise, RTL";
-addGlyphsToNode($numconFonts, $glyphs, $lineHeight, true, true);
+addGlyphsToNode($numconFonts, $glyphs, $lineHeight, true, true, 'awy');
 
 $glyphs = rotateGlyphArrayCW($glyphs, $tileHeight);
 $indexes[] = "4: upside-down, LTR";
-addGlyphsToNode($numconFonts, $glyphs, $lineHeight, false, false);
+addGlyphsToNode($numconFonts, $glyphs, $lineHeight, false, false, 'swx,ahy');
 $indexes[] = "5: upside-down, RTL";
-addGlyphsToNode($numconFonts, $glyphs, $lineHeight, false, true);
+addGlyphsToNode($numconFonts, $glyphs, $lineHeight, false, true, 'swx,ahy');
 
 $glyphs = rotateGlyphArrayCW($glyphs, $tileHeight);
 $indexes[] = "6: counterclockwise, LTR";
-addGlyphsToNode($numconFonts, $glyphs, $lineHeight, true, false);
+addGlyphsToNode($numconFonts, $glyphs, $lineHeight, true, false, 'shx');
 $indexes[] = "7: counterclockwise, RTL";
-addGlyphsToNode($numconFonts, $glyphs, $lineHeight, true, true);
+addGlyphsToNode($numconFonts, $glyphs, $lineHeight, true, true, 'shx');
 
 $indexes[] = '';
 $canvas->save("num.png");

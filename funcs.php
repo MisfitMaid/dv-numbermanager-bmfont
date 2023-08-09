@@ -2,7 +2,9 @@
 
 use Intervention\Image\Image;
 
-function addGlyphsToNode(DOMElement $elem, array $glyphs, int $height, bool $vert = false, bool $reverse = false, Image $debug = null): void {
+function addGlyphsToNode(DOMElement $elem, array $glyphs, int $height, bool $vert = false, bool $reverse = false, string $pointOffset = "none", Image $debug = null): void {
+    global $canvas;
+    $debug = $canvas;
     ksort($glyphs);
 
     $width = [];
@@ -10,10 +12,27 @@ function addGlyphsToNode(DOMElement $elem, array $glyphs, int $height, bool $ver
     $y = [];
     foreach ($glyphs as $v) {
         $width[] = $v['width'];
-        $x[] = $v['x'];
-        $y[] = $v['y'];
+        switch ($pointOffset) {
+            case "awy":
+                $x[] = $v['x'];
+                $y[] = $v['y'] + $v['width'];
+                break;
+            case "swx,ahy":
+                $x[] = $v['x'] - $v['width'];
+                $y[] = $v['y'] + $height;
+                break;
+            case "shx":
+                $x[] = $v['x'] - $height;
+                $y[] = $v['y'];
+                break;
+            case "none":
+            default:
+                $x[] = $v['x'];
+                $y[] = $v['y'];
+                break;
+        }
         if (!is_null($debug)) {
-            $debug->circle(3, $v['x'], $v['y'], function ($draw) {
+            $debug->circle(3, end($x), end($y), function ($draw) {
                 $draw->background('#0000ff');
             });
         }
