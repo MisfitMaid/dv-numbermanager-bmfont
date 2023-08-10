@@ -3,8 +3,6 @@
 use Intervention\Image\Image;
 
 function addGlyphsToNode(DOMElement $elem, array $glyphs, int $height, bool $vert = false, bool $reverse = false, string $pointOffset = "none", Image $debug = null): void {
-    global $canvas;
-    $debug = $canvas;
     ksort($glyphs);
 
     $width = [];
